@@ -42,6 +42,44 @@ const Timeline = ({ data }: TimelineProps) => {
   );
 
   const todayPosition = (daysUntilToday / totalDays) * 100;
+
+  const getPositionForDate = (date: Date) => {
+    const days = Math.ceil(
+      (date.getTime() - data.startDate.getTime()) / (1000 * 60 * 60 * 24)
+    );
+    return Math.max(0, Math.min(100, (days / totalDays) * 100));
+  };
+
+  return (
+    <div className="mb-16">
+      <div className="relative mb-12" ref={timelineRef}>
+        {/* Main timeline line */}
+        <div className="h1 bg-gray-300 w-full rounded-full"></div>
+
+        {/* Blue line until today */}
+        <div
+          className="h-2 bg-[hsl(var(--timeline-blue))] rounded-full absolute top-1/2 left-0 -translate-y-1/2"
+          style={{ width: `${todayPosition}%` }}
+        ></div>
+
+        {/* Milestones */}
+        {data.milestones.map((milestone) => {
+          const position = getPositionForDate(milestone.date);
+
+          return (
+            <div
+              key={milestone.id}
+              className="absolute top-1/2 -translate-y-1/2"
+              style={{ left: `${position}%` }}
+            >
+              {/*milestone component*/}
+              {milestone.name}
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
 };
 
 export default Timeline;
