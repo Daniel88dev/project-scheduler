@@ -2,6 +2,7 @@
 
 import { Milestone, TimelineData } from "./types.ts";
 import { useEffect, useRef, useState } from "react";
+import MilestoneMarker from "./MilestoneMarker.tsx";
 
 interface TimelineProps {
   data: TimelineData;
@@ -54,11 +55,11 @@ const Timeline = ({ data }: TimelineProps) => {
     <div className="mb-16">
       <div className="relative mb-12" ref={timelineRef}>
         {/* Main timeline line */}
-        <div className="h1 bg-gray-300 w-full rounded-full"></div>
+        <div className="h-1 bg-gray-300 w-full rounded-full"></div>
 
         {/* Blue line until today */}
         <div
-          className="h-2 bg-[hsl(var(--timeline-blue))] rounded-full absolute top-1/2 left-0 -translate-y-1/2"
+          className="h-2 bg-blue-500 rounded-full absolute top-1/2 left-0 -translate-y-1/2"
           style={{ width: `${todayPosition}%` }}
         ></div>
 
@@ -73,7 +74,7 @@ const Timeline = ({ data }: TimelineProps) => {
               style={{ left: `${position}%` }}
             >
               {/*milestone component*/}
-              {milestone.name}
+              <MilestoneMarker milestone={milestone} />
             </div>
           );
         })}

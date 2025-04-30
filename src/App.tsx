@@ -1,35 +1,112 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from "react";
+import reactLogo from "./assets/react.svg";
+import viteLogo from "/vite.svg";
+import "./App.css";
+import { TimelineData } from "./types.ts";
+import Timeline from "./Timeline.tsx";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [timelineData, setTimelineData] = useState<TimelineData>({
+    title: "Schedule",
+    startDate: new Date(2025, 0, 22),
+    endDate: new Date(2027, 0, 25),
+    milestones: [
+      {
+        id: 1,
+        name: "Prepare PR",
+        date: new Date(2025, 0, 15),
+        type: "circle",
+        status: "active",
+      },
+      {
+        id: 2,
+        name: "Make PO",
+        date: new Date(2025, 3, 15),
+        type: "circle",
+        status: "pending",
+      },
+      {
+        id: 3,
+        name: "Design",
+        date: new Date(2025, 4, 15),
+        type: "circle",
+        status: "pending",
+      },
+      {
+        id: 4,
+        name: "Manufacturing",
+        date: new Date(2025, 5, 15),
+        type: "circle",
+        status: "pending",
+      },
+      {
+        id: 5,
+        name: "OLT",
+        date: new Date(2025, 7, 18),
+        type: "square",
+        status: "pending",
+      },
+      {
+        id: 6,
+        name: "empty",
+        date: new Date(2025, 8, 12),
+        type: "circle",
+        status: "pending",
+      },
+      {
+        id: 7,
+        name: "Shipping",
+        date: new Date(2025, 11, 10),
+        type: "circle",
+        status: "pending",
+      },
+      {
+        id: 8,
+        name: "install",
+        date: new Date(2025, 11, 25),
+        type: "square",
+        status: "pending",
+        connector: "line",
+      },
+      {
+        id: 9,
+        name: "Event 1",
+        date: new Date(2026, 5, 15),
+        type: "triangle",
+        status: "pending",
+      },
+      {
+        id: 10,
+        name: "Event 2",
+        date: new Date(2026, 7, 15),
+        type: "triangle",
+        status: "pending",
+      },
+      {
+        id: 11,
+        name: "Event 3",
+        date: new Date(2026, 10, 1),
+        type: "circle",
+        status: "pending",
+      },
+      {
+        id: 12,
+        name: "SOP",
+        date: new Date(2026, 11, 15),
+        type: "end",
+        status: "pending",
+      },
+    ],
+  });
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <main className="min-h-screen p-8 bg-gray-50">
+      <div className="max-w-7xl mx-auto">
+        <h1 className="text-3xl font-bold mb-8">{timelineData.title}</h1>
+        <Timeline data={timelineData} />
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    </main>
+  );
 }
 
-export default App
+export default App;
