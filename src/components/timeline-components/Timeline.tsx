@@ -1,16 +1,19 @@
 "use client";
 
-import { Milestone, TimelineData } from "./types.ts";
+import { Milestone, TimelineData } from "./timeline-types.ts";
 import { useEffect, useRef, useState } from "react";
 import MilestoneMarker from "./MilestoneMarker.tsx";
 
 interface TimelineProps {
   data: TimelineData;
+  onMilestoneClick: (milestone: Milestone) => void;
 }
 
-const Timeline = ({ data }: TimelineProps) => {
+const Timeline = ({ data, onMilestoneClick }: TimelineProps) => {
   const timelineRef = useRef<HTMLDivElement>(null);
   const [timelineWidth, setTimelineWidth] = useState(0);
+
+  console.log(timelineWidth);
 
   useEffect(() => {
     if (timelineRef.current) {
@@ -74,7 +77,10 @@ const Timeline = ({ data }: TimelineProps) => {
               style={{ left: `${position}%` }}
             >
               {/*milestone component*/}
-              <MilestoneMarker milestone={milestone} />
+              <MilestoneMarker
+                milestone={milestone}
+                onMilestoneClick={onMilestoneClick}
+              />
             </div>
           );
         })}

@@ -1,14 +1,18 @@
 "use client";
 
-import { Milestone } from "./types.ts";
+import { Milestone } from "./timeline-types.ts";
 import { Circle, Flag, Square, Triangle } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/utils.ts";
 
 interface MilestoneMarkerProps {
   milestone: Milestone;
+  onMilestoneClick: (milestone: Milestone) => void;
 }
 
-const MilestoneMarker = ({ milestone }: MilestoneMarkerProps) => {
+const MilestoneMarker = ({
+  milestone,
+  onMilestoneClick,
+}: MilestoneMarkerProps) => {
   const formatMilestone = () => {
     const today = new Date();
     if (milestone.date < today && milestone.status === "completed") {
@@ -55,15 +59,21 @@ const MilestoneMarker = ({ milestone }: MilestoneMarkerProps) => {
       </div>
 
       {/* Marker */}
-      <div className="flex items-center justify-center">{getMarkerIcon()}</div>
+      <div
+        className="flex items-center justify-center"
+        onClick={() => onMilestoneClick(milestone)}
+      >
+        {getMarkerIcon()}
+      </div>
 
       {/* Date */}
       <div className="text-xs text-gray-500 mt-1 whitespace-nowrap">
-        {milestone.date.toLocaleDateString("en-US", {
-          month: "short",
-          day: "numeric",
-          year: "numeric",
-        })}
+        {milestone.date.getMonth() + 1}/{milestone.date.getDate()}
+        {/*{milestone.date.toLocaleDateString("en-US", {*/}
+        {/*  month: "short",*/}
+        {/*  day: "numeric",*/}
+        {/*  year: "numeric",*/}
+        {/*})}*/}
       </div>
     </div>
   );

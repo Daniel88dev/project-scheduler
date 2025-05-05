@@ -1,7 +1,11 @@
 import { useState } from "react";
 import "./App.css";
-import { TimelineData } from "./types.ts";
-import Timeline from "./Timeline.tsx";
+import {
+  Milestone,
+  TimelineData,
+} from "./components/timeline-components/timeline-types.ts";
+import Timeline from "./components/timeline-components/Timeline.tsx";
+import MilestoneChange from "@/components/timeline-components/MilestoneChange.tsx";
 
 function App() {
   const [timelineData, setTimelineData] = useState<TimelineData>({
@@ -96,12 +100,50 @@ function App() {
       },
     ],
   });
+  const [milestoneChange, setMilestoneChange] = useState<Milestone | null>(
+    null
+  );
+
+  const onMilestoneDialogClose = () => {
+    setMilestoneChange(null);
+  };
+
+  const onMilestoneChangeSubmit = (newMilestoneData: Milestone) => {
+    setTimelineData((prevState) => {
+      const newMilestoneArray: Milestone[] = prevState.milestones.map(
+        (milestone) => {
+          if (milestone.id === newMilestoneData.id) {
+            return newMilestoneData;
+          } else return milestone;
+        }
+      );
+
+      return {
+        ...prevState,
+        milestones: newMilestoneArray,
+      };
+    });
+  };
+
+  const onMilestoneDialogOpen = (milestoneData: Milestone) => {
+    setMilestoneChange(milestoneData);
+  };
 
   return (
     <main className="min-h-screen p-8 bg-gray-50">
       <div className="max-w-7xl mx-auto">
         <h1 className="text-3xl font-bold mb-8">{timelineData.title}</h1>
-        <Timeline data={timelineData} />
+        <Timeline
+          data={timelineData}
+          onMilestoneClick={onMilestoneDialogOpen}
+        />
+        {milestoneChange && (
+          <MilestoneChange
+            milestoneData={milestoneChange}
+            onMilestoneClose={onMilestoneDialogClose}
+            onMilestoneSubmit={onMilestoneChangeSubmit}
+          />
+        )}
       </div>
     </main>
   );
