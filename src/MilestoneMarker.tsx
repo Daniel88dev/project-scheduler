@@ -2,24 +2,48 @@
 
 import { Milestone } from "./types.ts";
 import { Circle, Flag, Square, Triangle } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 interface MilestoneMarkerProps {
   milestone: Milestone;
 }
 
 const MilestoneMarker = ({ milestone }: MilestoneMarkerProps) => {
+  const formatMilestone = () => {
+    const today = new Date();
+    if (milestone.date < today && milestone.status === "completed") {
+      return "fill-blue-400";
+    } else if (milestone.date < today) {
+      return "fill-red-400";
+    } else {
+      return "fill-secondary";
+    }
+  };
+
   const getMarkerIcon = () => {
     switch (milestone.type) {
       case "circle":
-        return <Circle className="h-6 w-6 text-blue-600" />;
+        return (
+          <Circle className={cn("h-6 w-6 text-blue-600", formatMilestone())} />
+        );
       case "square":
-        return <Square className="h-6 w-6 text-blue-600" />;
+        return (
+          <Square className={cn("h-6 w-6 text-blue-600", formatMilestone())} />
+        );
       case "triangle":
-        return <Triangle className="h-6 w-6 text-blue-600" />;
+        return (
+          <Triangle
+            className={cn("h-6 w-6 text-blue-600", formatMilestone())}
+          />
+        );
       case "end":
-        return <Flag className="h-6 w-6 text-blue-600" />;
+        return (
+          <Flag className={cn("h-6 w-6 text-blue-600", formatMilestone())} />
+        );
       default:
-        return <Circle className="h-6 w-6 text-blue-600" />;
+        return (
+          <Circle className={cn("h-6 w-6 text-blue-600", formatMilestone())} />
+        );
     }
   };
 

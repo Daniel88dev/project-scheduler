@@ -1,6 +1,4 @@
 import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
 import "./App.css";
 import { TimelineData } from "./types.ts";
 import Timeline from "./Timeline.tsx";
@@ -13,24 +11,24 @@ function App() {
     milestones: [
       {
         id: 1,
-        name: "Prepare PR",
+        name: "PR",
         date: new Date(2025, 0, 15),
         type: "circle",
-        status: "active",
+        status: "completed",
       },
       {
         id: 2,
-        name: "Make PO",
+        name: "PO",
         date: new Date(2025, 3, 15),
         type: "circle",
-        status: "pending",
+        status: "completed",
       },
       {
         id: 3,
         name: "Design",
         date: new Date(2025, 4, 15),
         type: "circle",
-        status: "pending",
+        status: "completed",
       },
       {
         id: 4,
