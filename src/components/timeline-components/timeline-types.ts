@@ -27,7 +27,7 @@ export interface TimelineData {
 
 export const milestoneSchema = z.object({
   id: z.number(),
-  name: z.string().length(2, "Minimum length is 2 characters"),
+  name: z.string().min(2, "Minimum length is 2 characters"),
   date: z.date(),
   type: z.enum(["circle-filled", "circle", "square", "triangle", "end"]),
   status: z.enum(["active", "pending", "completed"]),
