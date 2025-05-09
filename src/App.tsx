@@ -10,7 +10,7 @@ import MilestoneChange from "@/components/timeline-components/MilestoneChange.ts
 function App() {
   const [timelineData, setTimelineData] = useState<TimelineData>({
     title: "Schedule",
-    startDate: new Date(2025, 0, 22),
+    startDate: new Date(2024, 11, 22),
     endDate: new Date(2027, 0, 25),
     milestones: [
       {
@@ -33,6 +33,7 @@ function App() {
         date: new Date(2025, 4, 15),
         type: "circle",
         status: "completed",
+        secondaryPosition: "title",
       },
       {
         id: 4,
@@ -54,6 +55,7 @@ function App() {
         date: new Date(2025, 8, 12),
         type: "circle",
         status: "pending",
+        secondaryPosition: "date",
       },
       {
         id: 7,
@@ -64,11 +66,12 @@ function App() {
       },
       {
         id: 8,
-        name: "install",
+        name: "Install",
         date: new Date(2025, 11, 25),
         type: "square",
         status: "pending",
         connector: "line",
+        secondaryPosition: "both",
       },
       {
         id: 9,
@@ -132,7 +135,7 @@ function App() {
   return (
     <main className="min-h-screen p-8 bg-gray-50">
       <div className="max-w-7xl mx-auto">
-        <h1 className="text-3xl font-bold mb-8">{timelineData.title}</h1>
+        <h1 className="text-3xl font-bold mb-20">{timelineData.title}</h1>
         <Timeline
           data={timelineData}
           onMilestoneClick={onMilestoneDialogOpen}

@@ -75,6 +75,7 @@ const Timeline = ({ data, onMilestoneClick }: TimelineProps) => {
               key={milestone.id}
               className="absolute top-1/2 -translate-y-1/2"
               style={{ left: `${position}%` }}
+
             >
               {/*milestone component*/}
               <MilestoneMarker

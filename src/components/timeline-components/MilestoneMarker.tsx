@@ -51,10 +51,28 @@ const MilestoneMarker = ({
     }
   };
 
+  const textPosition = () => {
+    switch (milestone.secondaryPosition) {
+      case "title":
+        return { title: "mb-5", date: "mt-1 mb-4" };
+      case "date":
+        return { title: "mb-1 mt-4", date: "mt-5" };
+      case "both":
+        return { title: "mb-5", date: "mt-5" };
+      default:
+        return { title: "mb-1", date: "mt-1" };
+    }
+  };
+
   return (
     <div className="flex flex-col items-center cursor-pointer -translate-x-1/2">
       {/* Name above */}
-      <div className="text-xs text-black font-medium mb-1 whitespace-nowrap">
+      <div
+        className={cn(
+          "text-xs text-black font-medium whitespace-nowrap",
+          textPosition().title
+        )}
+      >
         {milestone.name}
       </div>
 
@@ -67,13 +85,13 @@ const MilestoneMarker = ({
       </div>
 
       {/* Date */}
-      <div className="text-xs text-gray-500 mt-1 whitespace-nowrap">
+      <div
+        className={cn(
+          "text-xs text-gray-500 whitespace-nowrap",
+          textPosition().date
+        )}
+      >
         {milestone.date.getMonth() + 1}/{milestone.date.getDate()}
-        {/*{milestone.date.toLocaleDateString("en-US", {*/}
-        {/*  month: "short",*/}
-        {/*  day: "numeric",*/}
-        {/*  year: "numeric",*/}
-        {/*})}*/}
       </div>
     </div>
   );

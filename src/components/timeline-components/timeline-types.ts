@@ -14,6 +14,7 @@ export interface Milestone {
   type: MilestoneType;
   status: MilestoneStatus;
   connector?: "line";
+  secondaryPosition?: "title" | "date" | "both";
 }
 
 export interface TimelineData {
