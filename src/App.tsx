@@ -70,7 +70,6 @@ function App() {
         date: new Date(2025, 11, 25),
         type: "square",
         status: "pending",
-        connector: "line",
         secondaryPosition: "both",
       },
       {

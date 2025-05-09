@@ -1,3 +1,5 @@
+import { z } from "zod";
+
 export type MilestoneType =
   | "circle-filled"
   | "circle"
@@ -13,8 +15,7 @@ export interface Milestone {
   date: Date;
   type: MilestoneType;
   status: MilestoneStatus;
-  connector?: "line";
-  secondaryPosition?: "title" | "date" | "both";
+  secondaryPosition?: "title" | "date" | "both" | "default";
 }
 
 export interface TimelineData {
@@ -23,3 +24,12 @@ export interface TimelineData {
   endDate: Date;
   milestones: Milestone[];
 }
+
+export const milestoneSchema = z.object({
+  id: z.number(),
+  name: z.string().length(2, "Minimum length is 2 characters"),
+  date: z.date(),
+  type: z.enum(["circle-filled", "circle", "square", "triangle", "end"]),
+  status: z.enum(["active", "pending", "completed"]),
+  secondaryPosition: z.enum(["title", "date", "both", "default"]),
+});
