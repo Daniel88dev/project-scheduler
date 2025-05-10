@@ -8,9 +8,15 @@ export const milestonesTypeList = [
   { name: "flag", icon: Flag },
 ] as const;
 
+export const milestoneStatusList = ["active", "pending", "completed"] as const;
+
+export const milestonePositions = ["title", "date", "both", "default"] as const;
+
 export type MilestoneType = (typeof milestonesTypeList)[number]["name"];
 
-export type MilestoneStatusType = "active" | "pending" | "completed";
+export type MilestoneStatusType = (typeof milestoneStatusList)[number];
+
+export type MilestonePositionType = (typeof milestonePositions)[number];
 
 export interface Milestone {
   id: number;
@@ -18,7 +24,7 @@ export interface Milestone {
   date: Date;
   type: MilestoneType;
   status: MilestoneStatusType;
-  secondaryPosition?: "title" | "date" | "both" | "default";
+  secondaryPosition: MilestonePositionType;
 }
 
 export interface TimelineData {
@@ -33,6 +39,6 @@ export const milestoneSchema = z.object({
   name: z.string().min(2, "Minimum length is 2 characters"),
   date: z.date(),
   type: z.enum(["circle", "square", "triangle", "flag"]),
-  status: z.enum(["active", "pending", "completed"]),
-  secondaryPosition: z.enum(["title", "date", "both", "default"]),
+  status: z.enum(milestoneStatusList),
+  secondaryPosition: z.enum(milestonePositions),
 });

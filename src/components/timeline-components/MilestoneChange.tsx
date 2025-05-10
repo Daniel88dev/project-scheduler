@@ -2,7 +2,11 @@
 
 import {
   Milestone,
+  milestonePositions,
+  MilestonePositionType,
   milestoneSchema,
+  milestoneStatusList,
+  MilestoneStatusType,
   milestonesTypeList,
   MilestoneType,
 } from "@/components/timeline-components/timeline-types.ts";
@@ -10,6 +14,7 @@ import { useState } from "react";
 import {
   Dialog,
   DialogContent,
+  DialogFooter,
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog.tsx";
@@ -60,6 +65,8 @@ const MilestoneChange = ({
     },
   });
 
+  console.log(form.state.values);
+
   return (
     <Dialog
       open={open}
@@ -68,7 +75,11 @@ const MilestoneChange = ({
         setOpen(e);
       }}
     >
-      <DialogContent>
+      <DialogContent
+        aria-description={"Dialog to adjust data for selected milestone"}
+        aria-describedby={"dialog-description"}
+        aria-labelledby={"dialog-title"}
+      >
         <DialogHeader>
           <DialogTitle>Change Milestone</DialogTitle>
         </DialogHeader>
@@ -163,7 +174,10 @@ const MilestoneChange = ({
                     </SelectTrigger>
                     <SelectContent>
                       {milestonesTypeList.map((option) => (
-                        <SelectItem value={option.name} key={option.name}>
+                        <SelectItem
+                          value={option.name}
+                          key={`option-${option.name}`}
+                        >
                           <option.icon className={"size-4"} />
                           {option.name}
                         </SelectItem>
@@ -174,6 +188,75 @@ const MilestoneChange = ({
               );
             }}
           />
+          <form.Field
+            name={"status"}
+            children={(field) => {
+              const onValueChange = (value: MilestoneStatusType) => {
+                field.handleChange(value);
+              };
+              return (
+                <div className={"flex flex-col gap-2"}>
+                  <Label>Select Status for Milestone</Label>
+                  <Select
+                    defaultValue={field.state.value}
+                    onValueChange={onValueChange}
+                  >
+                    <SelectTrigger>
+                      <SelectValue placeholder={"Select a status"} />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {milestoneStatusList.map((status) => (
+                        <SelectItem value={status} key={`status-${status}`}>
+                          {status}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+              );
+            }}
+          />
+          <form.Field
+            name={"secondaryPosition"}
+            children={(field) => {
+              const onValueChange = (value: MilestonePositionType) => {
+                field.handleChange(value);
+              };
+
+              return (
+                <div className={"flex flex-col gap-2"}>
+                  <Label>
+                    Select which Label should have secondary position:
+                  </Label>
+                  <Select
+                    defaultValue={field.state.value}
+                    onValueChange={onValueChange}
+                  >
+                    <SelectTrigger>
+                      <SelectValue
+                        placeholder={
+                          "Which element should have secondary position?"
+                        }
+                      />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {milestonePositions.map((position) => (
+                        <SelectItem
+                          value={position}
+                          key={`position-${position}`}
+                        >
+                          {position}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+              );
+            }}
+          />
+          <DialogFooter>
+            <Button type={"submit"}>Save</Button>
+          </DialogFooter>
         </form>
       </DialogContent>
     </Dialog>

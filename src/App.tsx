@@ -19,6 +19,7 @@ function App() {
         date: new Date(2025, 0, 15),
         type: "circle",
         status: "completed",
+        secondaryPosition: "default",
       },
       {
         id: 2,
@@ -26,6 +27,7 @@ function App() {
         date: new Date(2025, 3, 15),
         type: "circle",
         status: "completed",
+        secondaryPosition: "default",
       },
       {
         id: 3,
@@ -41,6 +43,7 @@ function App() {
         date: new Date(2025, 5, 15),
         type: "circle",
         status: "pending",
+        secondaryPosition: "default",
       },
       {
         id: 5,
@@ -48,6 +51,7 @@ function App() {
         date: new Date(2025, 7, 18),
         type: "square",
         status: "pending",
+        secondaryPosition: "default",
       },
       {
         id: 6,
@@ -63,6 +67,7 @@ function App() {
         date: new Date(2025, 11, 10),
         type: "circle",
         status: "pending",
+        secondaryPosition: "default",
       },
       {
         id: 8,
@@ -78,6 +83,7 @@ function App() {
         date: new Date(2026, 5, 15),
         type: "triangle",
         status: "pending",
+        secondaryPosition: "default",
       },
       {
         id: 10,
@@ -85,6 +91,7 @@ function App() {
         date: new Date(2026, 7, 15),
         type: "triangle",
         status: "pending",
+        secondaryPosition: "default",
       },
       {
         id: 11,
@@ -92,6 +99,7 @@ function App() {
         date: new Date(2026, 10, 1),
         type: "circle",
         status: "pending",
+        secondaryPosition: "default",
       },
       {
         id: 12,
@@ -99,6 +107,7 @@ function App() {
         date: new Date(2026, 11, 15),
         type: "flag",
         status: "pending",
+        secondaryPosition: "default",
       },
     ],
   });
