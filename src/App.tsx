@@ -97,7 +97,7 @@ function App() {
         id: 12,
         name: "SOP",
         date: new Date(2026, 11, 15),
-        type: "end",
+        type: "flag",
         status: "pending",
       },
     ],

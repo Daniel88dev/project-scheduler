@@ -3,6 +3,7 @@
 import {
   Milestone,
   milestoneSchema,
+  milestonesTypeList,
   MilestoneType,
 } from "@/components/timeline-components/timeline-types.ts";
 import { useState } from "react";
@@ -88,10 +89,10 @@ const MilestoneChange = ({
                   <Label htmlFor={field.name}>Enter Milestone Name:</Label>
                   <Input
                     id={field.name}
-                    name={field.name}
                     type={"text"}
                     value={field.state.value}
                     onChange={(e) => field.handleChange(e.target.value)}
+                    autoComplete={"off"}
                   />
                   {!field.state.meta.isValid &&
                     field.state.meta.errors.length > 0 && (
@@ -146,8 +147,6 @@ const MilestoneChange = ({
           <form.Field
             name={"type"}
             children={(field) => {
-              const options = ["circle", "square", "triangle", "end"];
-
               const onValueChange = (value: MilestoneType) => {
                 field.handleChange(value);
               };
@@ -163,9 +162,10 @@ const MilestoneChange = ({
                       <SelectValue placeholder={"Select a type"} />
                     </SelectTrigger>
                     <SelectContent>
-                      {options.map((option) => (
-                        <SelectItem value={option} key={option}>
-                          {option}
+                      {milestonesTypeList.map((option) => (
+                        <SelectItem value={option.name} key={option.name}>
+                          <option.icon className={"size-4"} />
+                          {option.name}
                         </SelectItem>
                       ))}
                     </SelectContent>

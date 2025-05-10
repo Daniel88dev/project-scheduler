@@ -40,7 +40,7 @@ const MilestoneMarker = ({
             className={cn("h-6 w-6 text-blue-600", formatMilestone())}
           />
         );
-      case "end":
+      case "flag":
         return (
           <Flag className={cn("h-6 w-6 text-blue-600", formatMilestone())} />
         );
