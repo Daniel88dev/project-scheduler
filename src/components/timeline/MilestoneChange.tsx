@@ -10,7 +10,7 @@ import {
   MilestoneStatusType,
   milestonesTypeList,
   MilestoneType,
-} from "@/components/timeline-components/timeline-types.ts";
+} from "@/components/timeline/timeline-types.ts";
 import { useState } from "react";
 import {
   Dialog,
@@ -96,7 +96,7 @@ const MilestoneChange = ({
             children={(field) => {
               return (
                 <div className="flex flex-col gap-2">
-                  <Label htmlFor={field.name}>Enter Milestone Name:</Label>
+                  <Label htmlFor={field.name}>Enter Milestone Name</Label>
                   <Input
                     id={field.name}
                     type={"text"}

@@ -49,3 +49,9 @@ export const milestoneSchema = z.object({
   secondaryPosition: z.enum(milestonePositions),
   endDate: z.date().optional(),
 });
+
+export const timelineEditSchema = z.object({
+  title: z.string().min(5, "Minimum length is 5 characters"),
+  startDate: z.date(),
+  endDate: z.date(),
+});

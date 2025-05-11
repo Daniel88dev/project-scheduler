@@ -3,9 +3,16 @@ import "./App.css";
 import {
   Milestone,
   TimelineData,
-} from "./components/timeline-components/timeline-types.ts";
-import Timeline from "./components/timeline-components/Timeline.tsx";
-import MilestoneChange from "@/components/timeline-components/MilestoneChange.tsx";
+} from "@/components/timeline/timeline-types.ts";
+import Timeline from "@/components/timeline/Timeline.tsx";
+import MilestoneChange from "@/components/timeline/MilestoneChange.tsx";
+import ModifyTimelineData from "@/components/timeline/ModifyTimelineData.tsx";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card.tsx";
 
 function App() {
   const [timelineData, setTimelineData] = useState<TimelineData>({
@@ -142,20 +149,30 @@ function App() {
 
   return (
     <main className="min-h-screen p-8 bg-gray-50">
-      <div className="max-w-7xl mx-auto">
-        <h1 className="text-3xl font-bold mb-20">{timelineData.title}</h1>
-        <Timeline
-          data={timelineData}
-          onMilestoneClick={onMilestoneDialogOpen}
-        />
-        {milestoneChange && (
-          <MilestoneChange
-            milestoneData={milestoneChange}
-            onMilestoneClose={onMilestoneDialogClose}
-            onMilestoneSubmit={onMilestoneChangeSubmit}
+      <Card className="max-w-7xl mx-auto">
+        <CardContent>
+          <CardHeader className={"flex flex-row justify-between"}>
+            <CardTitle className="text-3xl font-bold mb-20">
+              {timelineData.title}
+            </CardTitle>
+            <ModifyTimelineData
+              initialData={timelineData}
+              onSave={(e) => console.log(e)}
+            />
+          </CardHeader>
+          <Timeline
+            data={timelineData}
+            onMilestoneClick={onMilestoneDialogOpen}
           />
-        )}
-      </div>
+        </CardContent>
+      </Card>
+      {milestoneChange && (
+        <MilestoneChange
+          milestoneData={milestoneChange}
+          onMilestoneClose={onMilestoneDialogClose}
+          onMilestoneSubmit={onMilestoneChangeSubmit}
+        />
+      )}
     </main>
   );
 }
