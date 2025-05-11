@@ -2,6 +2,7 @@
 
 import {
   Milestone,
+  MilestoneEvent,
   milestonePositions,
   MilestonePositionType,
   milestoneSchema,
@@ -40,7 +41,7 @@ import {
 } from "@/components/ui/select.tsx";
 
 interface MilestoneChangeProps {
-  milestoneData: Milestone;
+  milestoneData: Milestone | MilestoneEvent;
   onMilestoneClose: () => void;
   onMilestoneSubmit: (newMilestoneData: Milestone) => void;
 }
@@ -64,8 +65,6 @@ const MilestoneChange = ({
       setOpen(false);
     },
   });
-
-  console.log(form.state.values);
 
   return (
     <Dialog
@@ -117,48 +116,12 @@ const MilestoneChange = ({
               );
             }}
           />
-          {/*Date picker field*/}
-          <form.Field
-            name={"date"}
-            children={(field) => {
-              return (
-                <div className="flex flex-col gap-2">
-                  <Label>Select Milestone Date:</Label>
-                  <Popover>
-                    <PopoverTrigger asChild>
-                      <Button
-                        variant={"outline"}
-                        className={cn(
-                          "w-[280px] justify-start text-left font-normal",
-                          !field.state.value && "text-muted-foreground"
-                        )}
-                      >
-                        <CalendarIcon className="mr-2 h-4 w-4" />
-                        {field.state.value ? (
-                          format(field.state.value, "PPP")
-                        ) : (
-                          <span>Pick a date</span>
-                        )}
-                      </Button>
-                    </PopoverTrigger>
-                    <PopoverContent className="w-auto p-0">
-                      <Calendar
-                        mode="single"
-                        selected={field.state.value}
-                        onSelect={(e) => {
-                          if (e) field.handleChange(e);
-                        }}
-                      />
-                    </PopoverContent>
-                  </Popover>
-                </div>
-              );
-            }}
-          />
+          {/*Milestone Type input field*/}
           <form.Field
             name={"type"}
             children={(field) => {
               const onValueChange = (value: MilestoneType) => {
+                // TODO: Need to make sure, endDate will set to null/undefined if event type is selected
                 field.handleChange(value);
               };
 
@@ -188,6 +151,91 @@ const MilestoneChange = ({
               );
             }}
           />
+          <div className={"flex flex-row gap-4"}>
+            {/*Date picker field*/}
+            <form.Field
+              name={"date"}
+              children={(field) => {
+                return (
+                  <div className="flex flex-col gap-2">
+                    <Label>Select Milestone Date:</Label>
+                    <Popover>
+                      <PopoverTrigger asChild>
+                        <Button
+                          variant={"outline"}
+                          className={cn(
+                            "w-54 justify-start text-left font-normal",
+                            !field.state.value && "text-muted-foreground"
+                          )}
+                        >
+                          <CalendarIcon className="mr-2 h-4 w-4" />
+                          {field.state.value ? (
+                            format(field.state.value, "PPP")
+                          ) : (
+                            <span>Pick a date</span>
+                          )}
+                        </Button>
+                      </PopoverTrigger>
+                      <PopoverContent className="w-auto p-0">
+                        <Calendar
+                          mode="single"
+                          selected={field.state.value}
+                          onSelect={(e) => {
+                            if (e) field.handleChange(e);
+                          }}
+                        />
+                      </PopoverContent>
+                    </Popover>
+                  </div>
+                );
+              }}
+            />
+            {/*Milestone Event End Date (only if type is event*/}
+            <form.Subscribe
+              selector={(state) => state.values.type}
+              children={(milestoneType) => (
+                <form.Field
+                  name={"endDate"}
+                  children={(field) => {
+                    return (
+                      <div className="flex flex-col gap-2">
+                        <Label>Select Milestone Event End Date:</Label>
+                        <Popover>
+                          <PopoverTrigger asChild>
+                            <Button
+                              variant={"outline"}
+                              className={cn(
+                                "w-54 justify-start text-left font-normal",
+                                !field.state.value && "text-muted-foreground"
+                              )}
+                              disabled={milestoneType !== "event"}
+                            >
+                              <CalendarIcon className="mr-2 h-4 w-4" />
+                              {field.state.value ? (
+                                format(field.state.value, "PPP")
+                              ) : (
+                                <span>Pick a date</span>
+                              )}
+                            </Button>
+                          </PopoverTrigger>
+                          <PopoverContent className="w-auto p-0">
+                            <Calendar
+                              mode="single"
+                              selected={field.state.value}
+                              onSelect={(e) => {
+                                if (e) field.handleChange(e);
+                              }}
+                            />
+                          </PopoverContent>
+                        </Popover>
+                      </div>
+                    );
+                  }}
+                />
+              )}
+            />
+          </div>
+          {/*Milestone status select field*/}
           <form.Field
             name={"status"}
             children={(field) => {
@@ -216,6 +264,7 @@ const MilestoneChange = ({
               );
             }}
           />
+          {/*Milestone secondary position select field*/}
           <form.Field
             name={"secondaryPosition"}
             children={(field) => {

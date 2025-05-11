@@ -6,6 +6,7 @@ export const milestonesTypeList = [
   { name: "square", icon: Square },
   { name: "triangle", icon: Triangle },
   { name: "flag", icon: Flag },
+  { name: "event", icon: Square },
 ] as const;
 
 export const milestoneStatusList = ["active", "pending", "completed"] as const;
@@ -22,16 +23,21 @@ export interface Milestone {
   id: number;
   name: string;
   date: Date;
-  type: MilestoneType;
+  type: "circle" | "square" | "triangle" | "flag" | "event";
   status: MilestoneStatusType;
   secondaryPosition: MilestonePositionType;
+}
+
+export interface MilestoneEvent extends Milestone {
+  endDate: Date;
+  type: "event";
 }
 
 export interface TimelineData {
   title: string;
   startDate: Date;
   endDate: Date;
-  milestones: Milestone[];
+  milestones: Array<Milestone | MilestoneEvent>;
 }
 
 export const milestoneSchema = z.object({
@@ -41,4 +47,5 @@ export const milestoneSchema = z.object({
   type: z.enum(["circle", "square", "triangle", "flag"]),
   status: z.enum(milestoneStatusList),
   secondaryPosition: z.enum(milestonePositions),
+  endDate: z.date().optional(),
 });
