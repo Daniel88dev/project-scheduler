@@ -36,7 +36,7 @@ import DatePicker from "@/components/DatePicker/DatePicker.tsx";
 interface MilestoneChangeProps {
   milestoneData: Milestone | MilestoneEvent;
   onMilestoneClose: () => void;
-  onMilestoneSubmit: (newMilestoneData: Milestone) => void;
+  onMilestoneSubmit: (newMilestoneData: Milestone | MilestoneEvent) => void;
 }
 
 const MilestoneChange = ({
@@ -58,8 +58,6 @@ const MilestoneChange = ({
       setOpen(false);
     },
   });
-
-  console.log(form.state.values);
 
   return (
     <Dialog

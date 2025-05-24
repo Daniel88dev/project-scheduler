@@ -2,6 +2,7 @@ import { useState } from "react";
 import "./App.css";
 import {
   Milestone,
+  MilestoneEvent,
   TimelineData,
 } from "@/components/timeline/timeline-types.ts";
 import Timeline from "@/components/timeline/Timeline.tsx";
@@ -126,15 +127,16 @@ function App() {
     setMilestoneChange(null);
   };
 
-  const onMilestoneChangeSubmit = (newMilestoneData: Milestone) => {
+  const onMilestoneChangeSubmit = (
+    newMilestoneData: Milestone | MilestoneEvent
+  ) => {
     setTimelineData((prevState) => {
-      const newMilestoneArray: Milestone[] = prevState.milestones.map(
-        (milestone) => {
+      const newMilestoneArray: Array<Milestone | MilestoneEvent> =
+        prevState.milestones.map((milestone) => {
           if (milestone.id === newMilestoneData.id) {
             return newMilestoneData;
           } else return milestone;
-        }
-      );
+        });
 
       return {
         ...prevState,
