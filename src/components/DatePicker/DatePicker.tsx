@@ -34,6 +34,7 @@ const DatePicker = ({
               "w-54 justify-start text-left font-normal",
               dateValue && "text-muted-foreground"
             )}
+            disabled={disabled}
           >
             <CalendarIcon className="mr-2 h-4 w-4" />
             {dateValue ? format(dateValue, "PPP") : <span>Pick a date</span>}
@@ -46,7 +47,6 @@ const DatePicker = ({
             onSelect={(e) => {
               if (e) onSelectDate(e);
             }}
-            disabled={disabled}
           />
         </PopoverContent>
       </Popover>

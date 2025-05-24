@@ -59,6 +59,8 @@ const MilestoneChange = ({
     },
   });
 
+  console.log(form.state.values);
+
   return (
     <Dialog
       open={open}
@@ -114,8 +116,14 @@ const MilestoneChange = ({
             name={"type"}
             children={(field) => {
               const onValueChange = (value: MilestoneType) => {
-                // TODO: Need to make sure, endDate will set to null/undefined if event type is selected
+                if (value !== "event") {
+                  //form.resetField("endDate");
+                  //todo Need to make sure, endDate will set to null/undefined if event type is selected - change empty string to null when tanstack fix their bug
+                  //form.setFieldValue("endDate", null);
+                  form.deleteField("endDate");
+                }
                 field.handleChange(value);
+                console.log(form.state.values);
               };
 
               return (

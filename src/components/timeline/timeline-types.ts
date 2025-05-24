@@ -47,7 +47,7 @@ export const milestoneSchema = z.object({
   type: z.enum(["circle", "square", "triangle", "flag"]),
   status: z.enum(milestoneStatusList),
   secondaryPosition: z.enum(milestonePositions),
-  endDate: z.date().optional(),
+  endDate: z.date().nullable().optional(),
 });
 
 export const timelineEditSchema = z.object({

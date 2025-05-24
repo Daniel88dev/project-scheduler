@@ -42,9 +42,10 @@ const ModifyTimelineData = ({
       onChangeAsyncDebounceMs: 500,
     },
     onSubmit: ({ value }) => {
-      if (isDate(value.startDate) && isDate(value.endDate)) {
-        // TODO: fix date error type
-        onSave(value);
+      const startDate = value.startDate;
+      const endDate = value.endDate;
+      if (isDate(startDate) && isDate(endDate)) {
+        onSave({ ...value, startDate, endDate });
         setOpen(false);
       } else {
         alert("Please select valid dates");
